@@ -1,16 +1,17 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
+from django.contrib.auth import logout
 from django.views import generic
 from django.urls import reverse_lazy
 
+
 from wiki.models import Page
 from .forms import PageCreateForm
-
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 
 class PageListView(ListView):
     """ Renders a list of all Pages. """
@@ -34,11 +35,13 @@ class PageDetailView(DetailView):
         'page': page
       })
 
+      
+
 class PageCreateView(CreateView):
   def get(self, request, *args, **kwargs):
       context = {'form': PageCreateForm()}
       return render(request, 'new.html', context)
-      
+
   def post(self, request, *args, **kwargs):
     form = PageCreateForm(request.POST)
     if form.is_valid():

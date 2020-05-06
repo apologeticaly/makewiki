@@ -8,5 +8,8 @@
   </div>
   <div class="card-footer">
     <small class="text-muted">Last updated {{ page.modified|date:"SHORT_DATETIME_FORMAT" }} by <b>{{ page.author.username }}</b></small>
+    {% if request.user.is_authenticated %}
+    <div class="text-right"><a href="/new" title="Read More">Edit</a></div>
+    {% endif %}
   </div>
 </div>
